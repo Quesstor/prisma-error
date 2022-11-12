@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "."
+  ],
+  "ignore": [
+    "node_modules/"
+  ],
+  "ext": "js,prisma",
+  "exec": "npm start"
+}
