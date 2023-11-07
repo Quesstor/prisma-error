@@ -2,15 +2,15 @@ const { PrismaClient } = require("@prisma/client")
 const fs = require("fs")
 
 const testdata = JSON.parse(fs.readFileSync(__dirname + "/testdata.json"))
-const DB = new PrismaClient();
+const DB = new PrismaClient()
+const insertionCount = 2000
 
+const batchCount = 100;
 (async () => {
   await DB.document.deleteMany()
-  for (let i = 0; i < 2000; i += 1) {
-    await DB.document.create({
-      data: { data: testdata }
-    })
-    console.log("Insert", i)
+  for (let i = 0; i < insertionCount; i += batchCount) {
+    console.log(`Creating ${batchCount} rows ${i}/${insertionCount}`)
+    await DB.document.createMany({ data: Array(batchCount).fill({ data: testdata }) })
   }
   console.log("Selecting documents ...")
   const works = await DB.document.findMany({ take: 1066 })
