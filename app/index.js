@@ -3,7 +3,7 @@ const fs = require("fs")
 
 const testdata = JSON.parse(fs.readFileSync(__dirname + "/testdata.json"))
 const DB = new PrismaClient()
-const insertionCount = 2000
+const insertionCount = 1100
 
 const batchCount = 100;
 (async () => {
