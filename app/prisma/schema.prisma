@@ -9,7 +9,27 @@ datasource db {
   url      = "postgresql://app:app@postgres/app"
 }
 
-model Document {
-  id   Int   @id @default(autoincrement())
-  data Json?
+model Order {
+  id         Int         @id @default(autoincrement())
+  invoices   Invoice[]
+  orderLines OrderLine[]
+}
+
+model Invoice {
+  id      Int   @id @default(autoincrement())
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  PDF     PDF[]
+}
+
+model PDF {
+  id        Int     @id @default(autoincrement())
+  invoiceId Int
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model OrderLine {
+  id      Int   @id @default(autoincrement())
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }

@@ -1,22 +1,23 @@
 const { PrismaClient } = require("./prisma")
 const { PrismaPg } = require("@prisma/adapter-pg")
-const fs = require("fs")
-
-const testdata = JSON.parse(fs.readFileSync(__dirname + "/testdata.json"))
-
 const DB = new PrismaClient({ adapter: new PrismaPg({ connectionString: "postgresql://app:app@postgres/app" }) })
-const insertionCount = 2000
 
-const batchCount = 100;
+  ;
 (async () => {
-  await DB.document.deleteMany()
-  for (let i = 0; i < insertionCount; i += batchCount) {
-    console.log(`Creating ${batchCount} rows ${i}/${insertionCount}`)
-    await DB.document.createMany({ data: Array(batchCount).fill({ data: testdata }) })
-  }
-  console.log("Selecting documents ...")
-  const works = await DB.document.findMany({ take: 1066 })
-  console.log("Selected (should work anyway)", works.length)
-  const breaks = await DB.document.findMany({})
-  console.log("WORKS!", breaks.length)
+
+  // works
+  await DB.orderLine.findMany({ select: { order: true } })
+  console.log("orderLine -> order works")
+
+  // works
+  await DB.order.findMany({ select: { invoices: { select: { PDF: true } } } })
+  console.log("order -> invoices -> PDF works")
+
+  // works
+  await DB.order.findMany({ select: { invoices: true, orderLines: true } })
+  console.log("order -> invoices & orderLines works")
+
+  // Fails with error: Expected object, got object
+  await DB.orderLine.findMany({ select: { order: { select: { invoices: true } } } })
+
 })()
