@@ -1,9 +1,11 @@
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require("./prisma")
+const { PrismaPg } = require("@prisma/adapter-pg")
 const fs = require("fs")
 
 const testdata = JSON.parse(fs.readFileSync(__dirname + "/testdata.json"))
-const DB = new PrismaClient()
-const insertionCount = 1100
+
+const DB = new PrismaClient({ adapter: new PrismaPg({ connectionString: "postgresql://app:app@postgres/app" }) })
+const insertionCount = 2000
 
 const batchCount = 100;
 (async () => {
@@ -14,6 +16,7 @@ const batchCount = 100;
   }
   console.log("Selecting documents ...")
   const works = await DB.document.findMany({ take: 1066 })
-  console.log("Selected", works.length)
-  const breaks = await DB.document.findMany({ take: 1067 })
+  console.log("Selected (should work anyway)", works.length)
+  const breaks = await DB.document.findMany({})
+  console.log("WORKS!", breaks.length)
 })()

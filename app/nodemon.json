@@ -3,7 +3,8 @@
     "."
   ],
   "ignore": [
-    "node_modules/"
+    "node_modules/",
+    "prisma/"
   ],
   "ext": "js,prisma",
   "exec": "npm start"
