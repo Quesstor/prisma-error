@@ -256,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.7.0
-   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+   * Prisma Client JS version: 6.9.0
+   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
    */
   export type PrismaVersion = {
     client: string
@@ -4473,6 +4473,7 @@ export namespace Prisma {
   }
 
   export type OrderLineCountAggregateOutputType = {
+    properties: number
     id: number
     orderId: number
     _all: number
@@ -4500,6 +4501,7 @@ export namespace Prisma {
   }
 
   export type OrderLineCountAggregateInputType = {
+    properties?: true
     id?: true
     orderId?: true
     _all?: true
@@ -4592,6 +4594,7 @@ export namespace Prisma {
   }
 
   export type OrderLineGroupByOutputType = {
+    properties: JsonValue
     id: number
     orderId: number
     _count: OrderLineCountAggregateOutputType | null
@@ -4616,29 +4619,33 @@ export namespace Prisma {
 
 
   export type OrderLineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    properties?: boolean
     id?: boolean
     orderId?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderLine"]>
 
   export type OrderLineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    properties?: boolean
     id?: boolean
     orderId?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderLine"]>
 
   export type OrderLineSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    properties?: boolean
     id?: boolean
     orderId?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderLine"]>
 
   export type OrderLineSelectScalar = {
+    properties?: boolean
     id?: boolean
     orderId?: boolean
   }
 
-  export type OrderLineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId", ExtArgs["result"]["orderLine"]>
+  export type OrderLineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"properties" | "id" | "orderId", ExtArgs["result"]["orderLine"]>
   export type OrderLineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }
@@ -4655,6 +4662,7 @@ export namespace Prisma {
       order: Prisma.$OrderPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
+      properties: Prisma.JsonValue
       id: number
       orderId: number
     }, ExtArgs["result"]["orderLine"]>
@@ -4740,8 +4748,8 @@ export namespace Prisma {
      * // Get first 10 OrderLines
      * const orderLines = await prisma.orderLine.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const orderLineWithIdOnly = await prisma.orderLine.findMany({ select: { id: true } })
+     * // Only select the `properties`
+     * const orderLineWithPropertiesOnly = await prisma.orderLine.findMany({ select: { properties: true } })
      * 
      */
     findMany<T extends OrderLineFindManyArgs>(args?: SelectSubset<T, OrderLineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -4785,9 +4793,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many OrderLines and only return the `id`
-     * const orderLineWithIdOnly = await prisma.orderLine.createManyAndReturn({
-     *   select: { id: true },
+     * // Create many OrderLines and only return the `properties`
+     * const orderLineWithPropertiesOnly = await prisma.orderLine.createManyAndReturn({
+     *   select: { properties: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -4876,9 +4884,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more OrderLines and only return the `id`
-     * const orderLineWithIdOnly = await prisma.orderLine.updateManyAndReturn({
-     *   select: { id: true },
+     * // Update zero or more OrderLines and only return the `properties`
+     * const orderLineWithPropertiesOnly = await prisma.orderLine.updateManyAndReturn({
+     *   select: { properties: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5081,6 +5089,7 @@ export namespace Prisma {
    * Fields of the OrderLine model
    */
   interface OrderLineFieldRefs {
+    readonly properties: FieldRef<"OrderLine", 'Json'>
     readonly id: FieldRef<"OrderLine", 'Int'>
     readonly orderId: FieldRef<"OrderLine", 'Int'>
   }
@@ -5535,6 +5544,7 @@ export namespace Prisma {
 
 
   export const OrderLineScalarFieldEnum: {
+    properties: 'properties',
     id: 'id',
     orderId: 'orderId'
   };
@@ -5548,6 +5558,30 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   /**
@@ -5566,6 +5600,27 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
     
 
 
@@ -5717,12 +5772,14 @@ export namespace Prisma {
     AND?: OrderLineWhereInput | OrderLineWhereInput[]
     OR?: OrderLineWhereInput[]
     NOT?: OrderLineWhereInput | OrderLineWhereInput[]
+    properties?: JsonFilter<"OrderLine">
     id?: IntFilter<"OrderLine"> | number
     orderId?: IntFilter<"OrderLine"> | number
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
   }
 
   export type OrderLineOrderByWithRelationInput = {
+    properties?: SortOrder
     id?: SortOrder
     orderId?: SortOrder
     order?: OrderOrderByWithRelationInput
@@ -5733,11 +5790,13 @@ export namespace Prisma {
     AND?: OrderLineWhereInput | OrderLineWhereInput[]
     OR?: OrderLineWhereInput[]
     NOT?: OrderLineWhereInput | OrderLineWhereInput[]
+    properties?: JsonFilter<"OrderLine">
     orderId?: IntFilter<"OrderLine"> | number
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
   }, "id">
 
   export type OrderLineOrderByWithAggregationInput = {
+    properties?: SortOrder
     id?: SortOrder
     orderId?: SortOrder
     _count?: OrderLineCountOrderByAggregateInput
@@ -5751,6 +5810,7 @@ export namespace Prisma {
     AND?: OrderLineScalarWhereWithAggregatesInput | OrderLineScalarWhereWithAggregatesInput[]
     OR?: OrderLineScalarWhereWithAggregatesInput[]
     NOT?: OrderLineScalarWhereWithAggregatesInput | OrderLineScalarWhereWithAggregatesInput[]
+    properties?: JsonWithAggregatesFilter<"OrderLine">
     id?: IntWithAggregatesFilter<"OrderLine"> | number
     orderId?: IntWithAggregatesFilter<"OrderLine"> | number
   }
@@ -5858,33 +5918,39 @@ export namespace Prisma {
   }
 
   export type OrderLineCreateInput = {
+    properties: JsonNullValueInput | InputJsonValue
     order: OrderCreateNestedOneWithoutOrderLinesInput
   }
 
   export type OrderLineUncheckedCreateInput = {
+    properties: JsonNullValueInput | InputJsonValue
     id?: number
     orderId: number
   }
 
   export type OrderLineUpdateInput = {
+    properties?: JsonNullValueInput | InputJsonValue
     order?: OrderUpdateOneRequiredWithoutOrderLinesNestedInput
   }
 
   export type OrderLineUncheckedUpdateInput = {
+    properties?: JsonNullValueInput | InputJsonValue
     id?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderLineCreateManyInput = {
+    properties: JsonNullValueInput | InputJsonValue
     id?: number
     orderId: number
   }
 
   export type OrderLineUpdateManyMutationInput = {
-
+    properties?: JsonNullValueInput | InputJsonValue
   }
 
   export type OrderLineUncheckedUpdateManyInput = {
+    properties?: JsonNullValueInput | InputJsonValue
     id?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
   }
@@ -6025,8 +6091,32 @@ export namespace Prisma {
     id?: SortOrder
     invoiceId?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type OrderLineCountOrderByAggregateInput = {
+    properties?: SortOrder
     id?: SortOrder
     orderId?: SortOrder
   }
@@ -6049,6 +6139,32 @@ export namespace Prisma {
   export type OrderLineSumOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type InvoiceCreateNestedManyWithoutOrderInput = {
@@ -6264,6 +6380,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type InvoiceCreateWithoutOrderInput = {
     PDF?: PDFCreateNestedManyWithoutInvoiceInput
@@ -6285,10 +6424,11 @@ export namespace Prisma {
   }
 
   export type OrderLineCreateWithoutOrderInput = {
-
+    properties: JsonNullValueInput | InputJsonValue
   }
 
   export type OrderLineUncheckedCreateWithoutOrderInput = {
+    properties: JsonNullValueInput | InputJsonValue
     id?: number
   }
 
@@ -6346,6 +6486,7 @@ export namespace Prisma {
     AND?: OrderLineScalarWhereInput | OrderLineScalarWhereInput[]
     OR?: OrderLineScalarWhereInput[]
     NOT?: OrderLineScalarWhereInput | OrderLineScalarWhereInput[]
+    properties?: JsonFilter<"OrderLine">
     id?: IntFilter<"OrderLine"> | number
     orderId?: IntFilter<"OrderLine"> | number
   }
@@ -6499,6 +6640,7 @@ export namespace Prisma {
   }
 
   export type OrderLineCreateManyOrderInput = {
+    properties: JsonNullValueInput | InputJsonValue
     id?: number
   }
 
@@ -6516,14 +6658,16 @@ export namespace Prisma {
   }
 
   export type OrderLineUpdateWithoutOrderInput = {
-
+    properties?: JsonNullValueInput | InputJsonValue
   }
 
   export type OrderLineUncheckedUpdateWithoutOrderInput = {
+    properties?: JsonNullValueInput | InputJsonValue
     id?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderLineUncheckedUpdateManyWithoutOrderInput = {
+    properties?: JsonNullValueInput | InputJsonValue
     id?: IntFieldUpdateOperationsInput | number
   }
 

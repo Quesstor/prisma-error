@@ -26,7 +26,7 @@ const {
   Public,
   getRuntime,
   createParam,
-} = require('./runtime/wasm.js')
+} = require('./runtime/wasm-compiler-edge.js')
 
 
 const Prisma = {}
@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -107,6 +107,7 @@ exports.Prisma.PDFScalarFieldEnum = {
 };
 
 exports.Prisma.OrderLineScalarFieldEnum = {
+  properties: 'properties',
   id: 'id',
   orderId: 'orderId'
 };
@@ -114,6 +115,21 @@ exports.Prisma.OrderLineScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 
@@ -158,8 +174,8 @@ const config = {
     "rootEnvPath": null
   },
   "relativePath": "..",
-  "clientVersion": "6.7.0",
-  "engineVersion": "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed",
+  "clientVersion": "6.9.0",
+  "engineVersion": "81e4af48011447c3cc503a190e86995b66d2a28e",
   "datasourceNames": [
     "db"
   ],
@@ -172,23 +188,23 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"queryCompiler\", \"driverAdapters\"]\n  output          = \"./prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://app:app@postgres/app\"\n}\n\nmodel Order {\n  id         Int         @id @default(autoincrement())\n  invoices   Invoice[]\n  orderLines OrderLine[]\n}\n\nmodel Invoice {\n  id      Int   @id @default(autoincrement())\n  orderId Int\n  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  PDF     PDF[]\n}\n\nmodel PDF {\n  id        Int     @id @default(autoincrement())\n  invoiceId Int\n  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)\n}\n\nmodel OrderLine {\n  id      Int   @id @default(autoincrement())\n  orderId Int\n  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)\n}\n",
-  "inlineSchemaHash": "81007763c05d1004b84ffd3cc4c2daa6c6bce8c58fd8e3d3036ad8cf7509c699",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"queryCompiler\", \"driverAdapters\"]\n  output          = \"./prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://app:app@postgres/app\"\n}\n\nmodel Order {\n  id         Int         @id @default(autoincrement())\n  invoices   Invoice[]\n  orderLines OrderLine[]\n}\n\nmodel Invoice {\n  id      Int   @id @default(autoincrement())\n  orderId Int\n  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  PDF     PDF[]\n}\n\nmodel PDF {\n  id        Int     @id @default(autoincrement())\n  invoiceId Int\n  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)\n}\n\nmodel OrderLine {\n  properties Json\n  id         Int   @id @default(autoincrement())\n  orderId    Int\n  order      Order @relation(fields: [orderId], references: [id], onDelete: Cascade)\n}\n",
+  "inlineSchemaHash": "dbcf888dd2c53087d2559d24d2f08e4449646b2455bc85b09c17d23f1dbd8f17",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"invoices\",\"kind\":\"object\",\"type\":\"Invoice\",\"relationName\":\"InvoiceToOrder\"},{\"name\":\"orderLines\",\"kind\":\"object\",\"type\":\"OrderLine\",\"relationName\":\"OrderToOrderLine\"}],\"dbName\":null},\"Invoice\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"InvoiceToOrder\"},{\"name\":\"PDF\",\"kind\":\"object\",\"type\":\"PDF\",\"relationName\":\"InvoiceToPDF\"}],\"dbName\":null},\"PDF\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"invoiceId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"invoice\",\"kind\":\"object\",\"type\":\"Invoice\",\"relationName\":\"InvoiceToPDF\"}],\"dbName\":null},\"OrderLine\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToOrderLine\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"invoices\",\"kind\":\"object\",\"type\":\"Invoice\",\"relationName\":\"InvoiceToOrder\"},{\"name\":\"orderLines\",\"kind\":\"object\",\"type\":\"OrderLine\",\"relationName\":\"OrderToOrderLine\"}],\"dbName\":null},\"Invoice\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"InvoiceToOrder\"},{\"name\":\"PDF\",\"kind\":\"object\",\"type\":\"PDF\",\"relationName\":\"InvoiceToPDF\"}],\"dbName\":null},\"PDF\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"invoiceId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"invoice\",\"kind\":\"object\",\"type\":\"Invoice\",\"relationName\":\"InvoiceToPDF\"}],\"dbName\":null},\"OrderLine\":{\"fields\":[{\"name\":\"properties\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToOrderLine\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
-config.engineWasm = {
-  getRuntime: async () => require('./query_engine_bg.js'),
-  getQueryEngineWasmModule: async () => {
-    const loader = (await import('#wasm-engine-loader')).default
-    const engine = (await loader).default
-    return engine
+config.engineWasm = undefined
+config.compilerWasm = {
+  getRuntime: async () => require('./query_compiler_bg.js'),
+  getQueryCompilerWasmModule: async () => {
+    const loader = (await import('#wasm-compiler-loader')).default
+    const compiler = (await loader).default
+    return compiler
   }
 }
-config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {}

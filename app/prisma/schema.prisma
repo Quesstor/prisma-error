@@ -29,7 +29,8 @@ model PDF {
 }
 
 model OrderLine {
-  id      Int   @id @default(autoincrement())
-  orderId Int
-  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  properties Json
+  id         Int   @id @default(autoincrement())
+  orderId    Int
+  order      Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
