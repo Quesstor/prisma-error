@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/adapter-pg": "^6.7.0",
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.9.0",
     "nodemon": "^3.1.9",
-    "prisma": "^6.7.0"
+    "prisma": "^6.9.0"
   }
 }
