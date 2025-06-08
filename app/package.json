@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "prisma generate && prisma db push --accept-data-loss && node index.js",
+    "start": "prisma generate && prisma db push --accept-data-loss --force-reset && node index.js",
     "dev": "npm i && nodemon"
   },
   "author": "",
@@ -13,6 +13,7 @@
     "@prisma/adapter-pg": "^6.9.0",
     "@prisma/client": "^6.9.0",
     "nodemon": "^3.1.9",
-    "prisma": "^6.9.0"
+    "prisma": "^6.9.0",
+    "prisma-json-types-generator": "^3.4.2"
   }
 }

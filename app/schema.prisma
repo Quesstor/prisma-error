@@ -4,33 +4,23 @@ generator client {
   output          = "./prisma"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = "postgresql://app:app@postgres/app"
 }
 
-model Order {
-  id         Int         @id @default(autoincrement())
-  invoices   Invoice[]
-  orderLines OrderLine[]
+model User {
+  id   Int   @id @default(autoincrement())
+  logs Log[]
 }
 
-model Invoice {
-  id      Int   @id @default(autoincrement())
-  orderId Int
-  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  PDF     PDF[]
-}
+model Log {
+  id Int @id @default(autoincrement())
 
-model PDF {
-  id        Int     @id @default(autoincrement())
-  invoiceId Int
-  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-}
-
-model OrderLine {
-  properties Json
-  id         Int   @id @default(autoincrement())
-  orderId    Int
-  order      Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

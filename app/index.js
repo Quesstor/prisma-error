@@ -4,31 +4,30 @@ const DB = new PrismaClient({ adapter: new PrismaPg({ connectionString: "postgre
 
   ;
 (async () => {
-  await DB.order.deleteMany()
-  await DB.orderLine.deleteMany()
-  await DB.invoice.deleteMany()
-  await DB.order.create({
-    data: {
-      invoices: { create: { PDF: { create: {} } } },
-      orderLines: { create: [{ properties: { fu: "bar" } }, { properties: { one: 1 } }] }
-    }
-  })
+  const user = await DB.user.create({ data: { logs: { create: {} } } })
 
-  // works
-  const ols = await DB.orderLine.findMany({ select: { order: true, properties: true } })
-  console.log("orderLine -> order works", ols)
+  await Promise.all([
+    await DB.user.findUnique({ where: { id: user.id }, select: { logs: { take: 1 } } }),
+    await DB.user.findUnique({ where: { id: user.id }, select: { logs: { take: 1 } } }),
+  ])
+  console.log("WORKS in Promise.all")
+  await new Promise(r => setTimeout(r, 1000));
 
-  // works
-  await DB.order.findMany({ select: { invoices: { select: { PDF: true } } } })
-  console.log("order -> invoices -> PDF works")
 
-  // works
-  await DB.order.findMany({ select: { invoices: true, orderLines: true } })
-  console.log("order -> invoices & orderLines works")
+  (async () => await DB.user.findUnique({ where: { id: user.id }, select: { logs: {} } }))()
+  await DB.user.findUnique({ where: { id: user.id }, select: { logs: {} } })
+  console.log("WORKS without take 1")
+  await new Promise(r => setTimeout(r, 1000));
 
-  // Failed with error: Expected object, got object
-  const r = await DB.orderLine.findMany({ select: { order: { select: { invoices: true } } } })
-  console.log("yay, works!")
-  console.log(JSON.stringify(r, null, 2))
 
+  (async () => await DB.user.findFirst({ where: { id: user.id }, select: { logs: { take: 1 } } }))()
+  await DB.user.findFirst({ where: { id: user.id }, select: { logs: { take: 1 } } })
+  console.log("WORKS with findFirst")
+  await new Promise(r => setTimeout(r, 1000));
+
+
+  // Errors with TypeError: Cannot convert undefined or null to object
+  (async () => await DB.user.findUnique({ where: { id: user.id }, select: { logs: { take: 1 } } }))()
+  await DB.user.findUnique({ where: { id: user.id }, select: { logs: { take: 1 } } })
+  console.log("Fails")
 })()

@@ -120,24 +120,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.OrderScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id'
 };
 
-exports.Prisma.InvoiceScalarFieldEnum = {
+exports.Prisma.LogScalarFieldEnum = {
   id: 'id',
-  orderId: 'orderId'
-};
-
-exports.Prisma.PDFScalarFieldEnum = {
-  id: 'id',
-  invoiceId: 'invoiceId'
-};
-
-exports.Prisma.OrderLineScalarFieldEnum = {
-  properties: 'properties',
-  id: 'id',
-  orderId: 'orderId'
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -145,27 +134,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 
 exports.Prisma.ModelName = {
-  Order: 'Order',
-  Invoice: 'Invoice',
-  PDF: 'PDF',
-  OrderLine: 'OrderLine'
+  User: 'User',
+  Log: 'Log'
 };
 
 /**
